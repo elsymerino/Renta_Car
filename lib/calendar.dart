@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarPage extends StatefulWidget {
@@ -19,6 +20,14 @@ class CalendarPage extends StatefulWidget {
 class _CalendarPageState extends State<CalendarPage> {
   late DateTime _selectedStartDate;
   late DateTime _selectedEndDate;
+  final _firestore = FirebaseFirestore.instance;
+
+  final TextEditingController _nombreController = TextEditingController();
+  final TextEditingController _edadController = TextEditingController();
+  final TextEditingController _numeroLicenciaController =
+      TextEditingController();
+  final TextEditingController _tipoVehiculoController = TextEditingController();
+  final TextEditingController _metodoPagoController = TextEditingController();
 
   @override
   void initState() {
@@ -70,27 +79,32 @@ class _CalendarPageState extends State<CalendarPage> {
         _buildDateField(
             'Fecha de Finalización', Icons.calendar_today, _selectedEndDate),
         TextFormField(
+          controller: _nombreController,
           decoration: InputDecoration(
             labelText: 'Nombre Completo',
           ),
         ),
         TextFormField(
+          controller: _edadController,
           decoration: InputDecoration(
             labelText: 'Edad',
           ),
           keyboardType: TextInputType.number,
         ),
         TextFormField(
+          controller: _numeroLicenciaController,
           decoration: InputDecoration(
             labelText: 'Número de Licencia',
           ),
         ),
         TextFormField(
+          controller: _tipoVehiculoController,
           decoration: InputDecoration(
             labelText: 'Tipo de Vehículo',
           ),
         ),
         TextFormField(
+          controller: _metodoPagoController,
           decoration: InputDecoration(
             labelText: 'Método de pago',
           ),
@@ -98,7 +112,7 @@ class _CalendarPageState extends State<CalendarPage> {
         SizedBox(height: 16),
         ElevatedButton(
           onPressed: () {
-            // Lógica para guardar el formulario
+            _saveFormData();
           },
           child: Text('Guardar'),
         ),
@@ -144,6 +158,27 @@ class _CalendarPageState extends State<CalendarPage> {
           _selectedEndDate = picked;
         }
       });
+    }
+  }
+
+  Future<void> _saveFormData() async {
+    try {
+      await _firestore.collection('renta').add({
+        'nombre': _nombreController.text,
+        'edad': int.tryParse(_edadController.text) ?? 0,
+        'numero_licencia': _numeroLicenciaController.text,
+        'fecha_inicio': _selectedStartDate,
+        'fecha_fin': _selectedEndDate,
+        'tipo_vehiculo': _tipoVehiculoController.text,
+        'metodo_pago': _metodoPagoController.text,
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Información guardada en Firebase')),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error al guardar la información')),
+      );
     }
   }
 }
