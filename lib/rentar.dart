@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rentacar/calendar.dart';
 
 class Rentar extends StatefulWidget {
   const Rentar({Key? key});
@@ -45,7 +46,6 @@ class _RentarState extends State<Rentar> {
       "descripcion": "Camioneta de 4 puertas",
       "categoria": "Camionetas",
     },
-
     {
       "id": 5,
       "name": "Range Rover 2024",
@@ -87,8 +87,54 @@ class _RentarState extends State<Rentar> {
   }
 
   void _addToCart(int index) {
-    // Aquí puedes agregar la funcionalidad para añadir el producto al carrito
-    print("Producto agregado al carrito: ${_foundAutos[index]['name']}");
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (BuildContext context) {
+        return Container(
+          padding: EdgeInsets.all(16),
+          height: MediaQuery.of(context).size.height * 0.9,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image.network(
+                _foundAutos[index]["imagen"],
+                fit: BoxFit.cover,
+                height: 450,
+              ),
+              SizedBox(height: 16),
+              Text(
+                _foundAutos[index]["descripcion"],
+                style: TextStyle(fontSize: 16),
+              ),
+              SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('Cerrar'),
+              ),
+              SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CalendarPage(
+                        nombre: _foundAutos[index]['name'],
+                        imagen: _foundAutos[index]['imagen'],
+                        descripcion: _foundAutos[index]['descripcion'],
+                      ),
+                    ),
+                  );
+                },
+                child: Text('Rentar'),
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 
   @override

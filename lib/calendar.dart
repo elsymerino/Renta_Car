@@ -14,6 +14,7 @@ class CalendarPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Rentar $nombre'),
+        backgroundColor: Colors.amber,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
