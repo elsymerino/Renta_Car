@@ -175,6 +175,13 @@ class _CalendarPageState extends State<CalendarPage> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Información guardada en Firebase')),
       );
+
+      // Limpiar los controladores después de guardar los datos
+      _nombreController.clear();
+      _edadController.clear();
+      _numeroLicenciaController.clear();
+      _tipoVehiculoController.clear();
+      _metodoPagoController.clear();
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error al guardar la información')),
