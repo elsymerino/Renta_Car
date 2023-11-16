@@ -44,6 +44,16 @@ class _RentarState extends State<Rentar> {
           "https://upload.wikimedia.org/wikipedia/commons/f/fd/2019_Jeep_Cherokee_Latitude_front_5.27.18.jpg",
       "descripcion": "Camioneta de 4 puertas",
       "categoria": "Camionetas",
+    },
+
+    {
+      "id": 5,
+      "name": "Range Rover 2024",
+      "precio": 700,
+      "imagen":
+          "https://hips.hearstapps.com/hmg-prod/images/2023-range-rover-sport-101-1652153925.jpg",
+      "descripcion": "Camioneta de lujo",
+      "categoria": "Camionetas",
     }
     // Agrega los demás autos con sus imágenes, detalles y categorías
     // ...
