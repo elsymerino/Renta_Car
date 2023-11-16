@@ -13,7 +13,7 @@ class CalendarPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Rentar $nombre'),
+        title: Text('RENTAR EL AUTO $nombre'),
         backgroundColor: Colors.amber,
       ),
       body: Padding(
