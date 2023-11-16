@@ -6,8 +6,11 @@ class CalendarPage extends StatelessWidget {
   final String imagen;
   final String descripcion;
 
-  CalendarPage(
-      {required this.nombre, required this.imagen, required this.descripcion});
+  CalendarPage({
+    required this.nombre,
+    required this.imagen,
+    required this.descripcion,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +41,8 @@ class CalendarPage extends StatelessWidget {
             ),
             SizedBox(height: 16),
             _buildCalendar(context),
+            SizedBox(height: 16),
+            _buildForm(context),
           ],
         ),
       ),
@@ -48,7 +53,10 @@ class CalendarPage extends StatelessWidget {
     return TableCalendar(
       firstDay: DateTime.now(),
       lastDay: DateTime(
-          DateTime.now().year + 1, DateTime.now().month, DateTime.now().day),
+        DateTime.now().year + 1,
+        DateTime.now().month,
+        DateTime.now().day,
+      ),
       focusedDay: DateTime.now(),
       calendarFormat: CalendarFormat.month,
       startingDayOfWeek: StartingDayOfWeek.monday,
@@ -66,6 +74,62 @@ class CalendarPage extends StatelessWidget {
         // Aquí puedes agregar la lógica para manejar la fecha seleccionada
         print('Fecha seleccionada: $selectedDay');
       },
+    );
+  }
+
+  Widget _buildForm(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Complete el formulario:',
+          style: TextStyle(fontSize: 18),
+        ),
+        SizedBox(height: 16),
+        TextFormField(
+          decoration: InputDecoration(
+            labelText: 'Nombre Completo',
+          ),
+        ),
+        TextFormField(
+          decoration: InputDecoration(
+            labelText: 'Edad',
+          ),
+          keyboardType: TextInputType.number,
+        ),
+        TextFormField(
+          decoration: InputDecoration(
+            labelText: 'Número de Licencia',
+          ),
+        ),
+        TextFormField(
+          decoration: InputDecoration(
+            labelText: 'Fecha de Inicio',
+          ),
+        ),
+        TextFormField(
+          decoration: InputDecoration(
+            labelText: 'Fecha de Finalización',
+          ),
+        ),
+        TextFormField(
+          decoration: InputDecoration(
+            labelText: 'Tipo de Vehículo',
+          ),
+        ),
+        TextFormField(
+          decoration: InputDecoration(
+            labelText: 'Método de pago',
+          ),
+        ),
+        SizedBox(height: 16),
+        ElevatedButton(
+          onPressed: () {
+            // Lógica para guardar el formulario
+          },
+          child: Text('Guardar'),
+        ),
+      ],
     );
   }
 }
