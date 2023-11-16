@@ -22,18 +22,33 @@ class _CalendarPageState extends State<CalendarPage> {
   late DateTime _selectedEndDate;
   final _firestore = FirebaseFirestore.instance;
 
-  final TextEditingController _nombreController = TextEditingController();
-  final TextEditingController _edadController = TextEditingController();
-  final TextEditingController _numeroLicenciaController =
-      TextEditingController();
-  final TextEditingController _tipoVehiculoController = TextEditingController();
-  final TextEditingController _metodoPagoController = TextEditingController();
+  late TextEditingController _nombreController;
+  late TextEditingController _edadController;
+  late TextEditingController _numeroLicenciaController;
+  late TextEditingController _tipoVehiculoController;
+  late TextEditingController _metodoPagoController;
 
   @override
   void initState() {
     super.initState();
     _selectedStartDate = DateTime.now();
     _selectedEndDate = DateTime.now();
+
+    _nombreController = TextEditingController();
+    _edadController = TextEditingController();
+    _numeroLicenciaController = TextEditingController();
+    _tipoVehiculoController = TextEditingController();
+    _metodoPagoController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _nombreController.dispose();
+    _edadController.dispose();
+    _numeroLicenciaController.dispose();
+    _tipoVehiculoController.dispose();
+    _metodoPagoController.dispose();
+    super.dispose();
   }
 
   @override
@@ -75,39 +90,40 @@ class _CalendarPageState extends State<CalendarPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildDateField(
-            'Fecha de Inicio', Icons.calendar_today, _selectedStartDate),
-        _buildDateField(
-            'Fecha de Finalización', Icons.calendar_today, _selectedEndDate),
-        TextFormField(
-          controller: _nombreController,
-          decoration: InputDecoration(
-            labelText: 'Nombre Completo',
-          ),
+          'Fecha de Inicio',
+          Icons.calendar_today,
+          _selectedStartDate,
         ),
-        TextFormField(
+        _buildDateField(
+          'Fecha de Finalización',
+          Icons.calendar_today,
+          _selectedEndDate,
+        ),
+        _buildInputField(
+          labelText: 'Nombre Completo',
+          icon: Icons.person,
+          controller: _nombreController,
+        ),
+        _buildInputField(
+          labelText: 'Edad',
+          icon: Icons.date_range,
           controller: _edadController,
-          decoration: InputDecoration(
-            labelText: 'Edad',
-          ),
           keyboardType: TextInputType.number,
         ),
-        TextFormField(
+        _buildInputField(
+          labelText: 'Número de Licencia',
+          icon: Icons.card_membership,
           controller: _numeroLicenciaController,
-          decoration: InputDecoration(
-            labelText: 'Número de Licencia',
-          ),
         ),
-        TextFormField(
+        _buildInputField(
+          labelText: 'Tipo de Vehículo',
+          icon: Icons.directions_car,
           controller: _tipoVehiculoController,
-          decoration: InputDecoration(
-            labelText: 'Tipo de Vehículo',
-          ),
         ),
-        TextFormField(
+        _buildInputField(
+          labelText: 'Método de pago',
+          icon: Icons.payment,
           controller: _metodoPagoController,
-          decoration: InputDecoration(
-            labelText: 'Método de pago',
-          ),
         ),
         SizedBox(height: 16),
         ElevatedButton(
@@ -142,6 +158,22 @@ class _CalendarPageState extends State<CalendarPage> {
     );
   }
 
+  Widget _buildInputField({
+    required String labelText,
+    required IconData icon,
+    required TextEditingController controller,
+    TextInputType keyboardType = TextInputType.text,
+  }) {
+    return TextFormField(
+      controller: controller,
+      decoration: InputDecoration(
+        labelText: labelText,
+        suffixIcon: Icon(icon),
+      ),
+      keyboardType: keyboardType,
+    );
+  }
+
   Future<void> _selectDate(BuildContext context, String label) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -165,7 +197,7 @@ class _CalendarPageState extends State<CalendarPage> {
     try {
       await _firestore.collection('renta').add({
         'nombre': _nombreController.text,
-        'edad': int.tryParse(_edadController.text) ?? 0,
+        'edad': int.parse(_edadController.text),
         'numero_licencia': _numeroLicenciaController.text,
         'fecha_inicio': _selectedStartDate,
         'fecha_fin': _selectedEndDate,
@@ -175,17 +207,23 @@ class _CalendarPageState extends State<CalendarPage> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Información guardada en Firebase')),
       );
-
-      // Limpiar los controladores después de guardar los datos
-      _nombreController.clear();
-      _edadController.clear();
-      _numeroLicenciaController.clear();
-      _tipoVehiculoController.clear();
-      _metodoPagoController.clear();
+      _clearFormData();
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error al guardar la información')),
       );
     }
+  }
+
+  void _clearFormData() {
+    _nombreController.clear();
+    _edadController.clear();
+    _numeroLicenciaController.clear();
+    _tipoVehiculoController.clear();
+    _metodoPagoController.clear();
+    setState(() {
+      _selectedStartDate = DateTime.now();
+      _selectedEndDate = DateTime.now();
+    });
   }
 }
