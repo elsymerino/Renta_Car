@@ -30,11 +30,11 @@ class _RentarState extends State<Rentar> {
     {
       "id": 3,
       "name": "Hiunday",
-      "precio": 500,
+      "precio": 200,
       "imagen":
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/0_Hyundai_Tucson_%28NX4%29_1.jpg/1200px-0_Hyundai_Tucson_%28NX4%29_1.jpg",
-      "descripcion": "",
-      "categoria": "camionetas",
+          "https://s7d1.scene7.com/is/image/hyundai/2021-elantra-hev-0223-without-talent-and-cars-1:4-3?qlt=85,0&fmt=webp",
+      "descripcion": "Sedan clasico",
+      "categoria": "Cerrados",
     },
     {
       "id": 4,
