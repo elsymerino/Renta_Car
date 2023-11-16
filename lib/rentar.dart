@@ -15,8 +15,8 @@ class _RentarState extends State<Rentar> {
       "precio": 1000,
       "imagen":
           "https://phantom-expansion.unidadeditorial.es/d99e9afff02c3ac173b6d6f827f3a551/crop/0x725/2043x1875/resize/828/f/webp/assets/multimedia/imagenes/2022/05/20/16530388017130.jpg",
-      "descripcion": "",
-      "categoria": "picat",
+      "descripcion": "Automovil SuperDeportivo",
+      "categoria": "Cerrados",
     },
     {
       "id": 2,
@@ -24,8 +24,8 @@ class _RentarState extends State<Rentar> {
       "precio": 500,
       "imagen":
           "https://hips.hearstapps.com/hmg-prod/images/199431-honda-muestra-su-renovado-civic-type-r-en-el-tokyo-auto-salon-2020-1578660923.jpg",
-      "descripcion": "",
-      "categoria": "cerrados",
+      "descripcion": "Carro casual con excelente motor",
+      "categoria": "Cerrados",
     },
     {
       "id": 3,
