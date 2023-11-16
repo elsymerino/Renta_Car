@@ -37,7 +37,7 @@ class HomePage extends StatelessWidget {
           onPressed: () {
             Navigator.pushNamed(context, '/rentar');
           },
-          child: Text('Ir a Pharmacy'),
+          child: Text('Entra a rentar tu vehiculo'),
         ),
       ),
     );
