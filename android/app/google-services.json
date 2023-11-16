@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "566503971229",
+    "project_id": "rentacar-62f92",
+    "storage_bucket": "rentacar-62f92.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:566503971229:android:813170d31d1506e180f774",
+        "android_client_info": {
+          "package_name": "com.vehy.rentacar"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYMtU2axcPhrlpU9e3NCtnbk52xJt5TWo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
