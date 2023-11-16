@@ -30,7 +30,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Mi Aplicación'),
+        title: Text('Renta tu vehiculo'),
       ),
       body: Center(
         child: ElevatedButton(
