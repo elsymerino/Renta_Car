@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class CalendarPage extends StatelessWidget {
+class CalendarPage extends StatefulWidget {
   final String nombre;
   final String imagen;
   final String descripcion;
@@ -13,10 +13,25 @@ class CalendarPage extends StatelessWidget {
   });
 
   @override
+  _CalendarPageState createState() => _CalendarPageState();
+}
+
+class _CalendarPageState extends State<CalendarPage> {
+  late DateTime _selectedStartDate;
+  late DateTime _selectedEndDate;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedStartDate = DateTime.now();
+    _selectedEndDate = DateTime.now();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('RENTAR EL AUTO $nombre'),
+        title: Text('RENTAR EL AUTO ${widget.nombre}'),
         backgroundColor: Colors.amber,
       ),
       body: ListView(
@@ -27,25 +42,13 @@ class CalendarPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Image.network(
-                  imagen,
+                  widget.imagen,
                   fit: BoxFit.cover,
                   height: 200,
                 ),
                 SizedBox(height: 16),
                 Text(
-                  descripcion,
-                  style: TextStyle(fontSize: 18),
-                ),
-                SizedBox(height: 16),
-                Text(
-                  'Seleccione una fecha para rentar:',
-                  style: TextStyle(fontSize: 18),
-                ),
-                SizedBox(height: 16),
-                _buildCalendar(context),
-                SizedBox(height: 16),
-                Text(
-                  'Complete el formulario:',
+                  widget.descripcion,
                   style: TextStyle(fontSize: 18),
                 ),
                 SizedBox(height: 16),
@@ -58,36 +61,14 @@ class CalendarPage extends StatelessWidget {
     );
   }
 
-  Widget _buildCalendar(BuildContext context) {
-    return TableCalendar(
-      firstDay: DateTime.now(),
-      lastDay: DateTime(
-        DateTime.now().year + 1,
-        DateTime.now().month,
-        DateTime.now().day,
-      ),
-      focusedDay: DateTime.now(),
-      calendarFormat: CalendarFormat.month,
-      startingDayOfWeek: StartingDayOfWeek.monday,
-      calendarStyle: CalendarStyle(
-        todayDecoration: BoxDecoration(
-          color: Colors.amber,
-          shape: BoxShape.circle,
-        ),
-        selectedDecoration: BoxDecoration(
-          shape: BoxShape.circle,
-        ),
-      ),
-      onDaySelected: (selectedDay, focusedDay) {
-        print('Fecha seleccionada: $selectedDay');
-      },
-    );
-  }
-
   Widget _buildForm(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        _buildDateField(
+            'Fecha de Inicio', Icons.calendar_today, _selectedStartDate),
+        _buildDateField(
+            'Fecha de Finalización', Icons.calendar_today, _selectedEndDate),
         TextFormField(
           decoration: InputDecoration(
             labelText: 'Nombre Completo',
@@ -102,16 +83,6 @@ class CalendarPage extends StatelessWidget {
         TextFormField(
           decoration: InputDecoration(
             labelText: 'Número de Licencia',
-          ),
-        ),
-        TextFormField(
-          decoration: InputDecoration(
-            labelText: 'Fecha de Inicio',
-          ),
-        ),
-        TextFormField(
-          decoration: InputDecoration(
-            labelText: 'Fecha de Finalización',
           ),
         ),
         TextFormField(
@@ -134,5 +105,45 @@ class CalendarPage extends StatelessWidget {
         SizedBox(height: 16),
       ],
     );
+  }
+
+  Widget _buildDateField(String label, IconData icon, DateTime selectedDate) {
+    return TextFormField(
+      decoration: InputDecoration(
+        labelText: label,
+        suffixIcon: IconButton(
+          icon: Icon(icon),
+          onPressed: () {
+            _selectDate(context, label);
+          },
+        ),
+      ),
+      readOnly: true,
+      onTap: () {
+        _selectDate(context, label);
+      },
+      controller: TextEditingController(
+        text: '${selectedDate.toLocal()}'.split(' ')[0],
+      ),
+    );
+  }
+
+  Future<void> _selectDate(BuildContext context, String label) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate:
+          label == 'Fecha de Inicio' ? _selectedStartDate : _selectedEndDate,
+      firstDate: DateTime.now(),
+      lastDate: DateTime(DateTime.now().year + 1),
+    );
+    if (picked != null) {
+      setState(() {
+        if (label == 'Fecha de Inicio') {
+          _selectedStartDate = picked;
+        } else {
+          _selectedEndDate = picked;
+        }
+      });
+    }
   }
 }
