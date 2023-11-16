@@ -38,12 +38,12 @@ class _RentarState extends State<Rentar> {
     },
     {
       "id": 4,
-      "name": "Nissan",
-      "precio": 450,
+      "name": "Jeep Cherokee",
+      "precio": 300,
       "imagen":
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Nuevo_Nissan_Sentra_2023.webp/1200px-Nuevo_Nissan_Sentra_2023.webp.png",
-      "descripcion": "",
-      "categoria": "camionetas",
+          "https://upload.wikimedia.org/wikipedia/commons/f/fd/2019_Jeep_Cherokee_Latitude_front_5.27.18.jpg",
+      "descripcion": "Camioneta de 4 puertas",
+      "categoria": "Camionetas",
     }
     // Agrega los demás autos con sus imágenes, detalles y categorías
     // ...
