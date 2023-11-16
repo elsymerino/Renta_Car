@@ -19,32 +19,41 @@ class CalendarPage extends StatelessWidget {
         title: Text('RENTAR EL AUTO $nombre'),
         backgroundColor: Colors.amber,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Image.network(
-              imagen,
-              fit: BoxFit.cover,
-              height: 200,
+      body: ListView(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Image.network(
+                  imagen,
+                  fit: BoxFit.cover,
+                  height: 200,
+                ),
+                SizedBox(height: 16),
+                Text(
+                  descripcion,
+                  style: TextStyle(fontSize: 18),
+                ),
+                SizedBox(height: 16),
+                Text(
+                  'Seleccione una fecha para rentar:',
+                  style: TextStyle(fontSize: 18),
+                ),
+                SizedBox(height: 16),
+                _buildCalendar(context),
+                SizedBox(height: 16),
+                Text(
+                  'Complete el formulario:',
+                  style: TextStyle(fontSize: 18),
+                ),
+                SizedBox(height: 16),
+                _buildForm(context),
+              ],
             ),
-            SizedBox(height: 16),
-            Text(
-              descripcion,
-              style: TextStyle(fontSize: 18),
-            ),
-            SizedBox(height: 16),
-            Text(
-              'Seleccione una fecha para rentar:',
-              style: TextStyle(fontSize: 18),
-            ),
-            SizedBox(height: 16),
-            _buildCalendar(context),
-            SizedBox(height: 16),
-            _buildForm(context),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -66,12 +75,10 @@ class CalendarPage extends StatelessWidget {
           shape: BoxShape.circle,
         ),
         selectedDecoration: BoxDecoration(
-          //color: Theme.of(context).accentColor,
           shape: BoxShape.circle,
         ),
       ),
       onDaySelected: (selectedDay, focusedDay) {
-        // Aquí puedes agregar la lógica para manejar la fecha seleccionada
         print('Fecha seleccionada: $selectedDay');
       },
     );
@@ -81,11 +88,6 @@ class CalendarPage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Complete el formulario:',
-          style: TextStyle(fontSize: 18),
-        ),
-        SizedBox(height: 16),
         TextFormField(
           decoration: InputDecoration(
             labelText: 'Nombre Completo',
@@ -129,6 +131,7 @@ class CalendarPage extends StatelessWidget {
           },
           child: Text('Guardar'),
         ),
+        SizedBox(height: 16),
       ],
     );
   }
