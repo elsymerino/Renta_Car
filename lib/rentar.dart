@@ -180,7 +180,7 @@ class _RentarState extends State<Rentar> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Search Listview'),
+        title: const Text('RENTACAR'),
         backgroundColor: Colors.amber,
         actions: [
           DropdownButton<String>(
