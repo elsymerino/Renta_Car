@@ -54,9 +54,19 @@ class _RentarState extends State<Rentar> {
           "https://hips.hearstapps.com/hmg-prod/images/2023-range-rover-sport-101-1652153925.jpg",
       "descripcion": "Camioneta de lujo",
       "categoria": "Camionetas",
+    },
+
+    {
+      "id": 6,
+      "name": "Honda CR-V",
+      "precio": 360,
+      "imagen":
+          "https://horsepowermexico.com/wp-content/uploads/2020/10/hondacrv-scaled.jpg",
+      "descripcion": "Camioneta de lujo",
+      "categoria": "Camionetas",
     }
     // Agrega los demás autos con sus imágenes, detalles y categorías
-    // ...
+    // https://horsepowermexico.com/wp-content/uploads/2020/10/hondacrv-scaled.jpg
   ];
 
   List<Map<String, dynamic>> _foundAutos = [];
