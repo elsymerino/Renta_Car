@@ -64,7 +64,17 @@ class _RentarState extends State<Rentar> {
           "https://horsepowermexico.com/wp-content/uploads/2020/10/hondacrv-scaled.jpg",
       "descripcion": "Camioneta de lujo",
       "categoria": "Camionetas",
-    }
+    },
+
+    {
+      "id": 6,
+      "name": "Toyota Hilux 2022",
+      "precio": 500,
+      "imagen":
+          "https://autosdeprimera.com/wp-content/uploads/2022/12/toyota-hilux-srx-diesel-4x4-a.jpg",
+      "descripcion": "Para equipamento pesado",
+      "categoria": "Picat",
+    },
     // Agrega los demás autos con sus imágenes, detalles y categorías
     // https://horsepowermexico.com/wp-content/uploads/2020/10/hondacrv-scaled.jpg
   ];
