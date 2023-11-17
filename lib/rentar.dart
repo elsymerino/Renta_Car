@@ -67,11 +67,21 @@ class _RentarState extends State<Rentar> {
     },
 
     {
-      "id": 6,
+      "id": 7,
       "name": "Toyota Hilux 2022",
       "precio": 500,
       "imagen":
           "https://autosdeprimera.com/wp-content/uploads/2022/12/toyota-hilux-srx-diesel-4x4-a.jpg",
+      "descripcion": "Para equipamento pesado",
+      "categoria": "Picat",
+    },
+
+    {
+      "id": 8,
+      "name": "Nissan Frontier NP300",
+      "precio": 660,
+      "imagen":
+          "https://upload.wikimedia.org/wikipedia/commons/9/94/Nissan_NP300_Navara_DoubleCab.jpg",
       "descripcion": "Para equipamento pesado",
       "categoria": "Picat",
     },
