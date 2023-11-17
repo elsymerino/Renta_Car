@@ -90,27 +90,36 @@ class _RentarState extends State<Rentar> {
   ];
 
   List<Map<String, dynamic>> _foundAutos = [];
-
+  String _searchText = '';
   String _selectedCategory = 'All';
   List<String> _categories = ['All', 'Picat', 'Cerrados', 'Camionetas'];
 
   @override
-  initState() {
+  void initState() {
     _foundAutos = _allAutos;
     super.initState();
   }
 
-  void _runFilter(String selectedCategory) {
-    List<Map<String, dynamic>> results = [];
-    if (selectedCategory == 'All') {
-      results = _allAutos;
-    } else {
-      results = _allAutos
+  void _runFilter(String searchText, String selectedCategory) {
+    List<Map<String, dynamic>> results = _allAutos;
+
+    if (selectedCategory != 'All') {
+      results = results
           .where((auto) =>
-              auto["categoria"] != null &&
               auto["categoria"].toLowerCase() == selectedCategory.toLowerCase())
           .toList();
     }
+
+    if (searchText.isNotEmpty) {
+      results = results
+          .where((auto) =>
+              auto["name"].toLowerCase().contains(searchText.toLowerCase()) ||
+              auto["descripcion"]
+                  .toLowerCase()
+                  .contains(searchText.toLowerCase()))
+          .toList();
+    }
+
     setState(() {
       _foundAutos = results;
     });
@@ -179,7 +188,7 @@ class _RentarState extends State<Rentar> {
             onChanged: (String? newValue) {
               setState(() {
                 _selectedCategory = newValue!;
-                _runFilter(_selectedCategory);
+                _runFilter(_searchText, _selectedCategory);
               });
             },
             items: _categories.map<DropdownMenuItem<String>>((String value) {
@@ -200,7 +209,10 @@ class _RentarState extends State<Rentar> {
                 height: 20,
               ),
               TextField(
-                onChanged: (value) => _runFilter(value),
+                onChanged: (value) {
+                  _searchText = value;
+                  _runFilter(_searchText, _selectedCategory);
+                },
                 decoration: const InputDecoration(
                   labelText: 'Search',
                   suffixIcon: Icon(Icons.search),
