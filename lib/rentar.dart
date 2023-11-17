@@ -256,7 +256,7 @@ class _RentarState extends State<Rentar> {
                                 primary: Colors.amber, // Color del botón
                               ),
                               child: Text(
-                                'Agregar al carrito',
+                                'Agregar al carro',
                                 style: TextStyle(
                                     fontSize: 12, color: Colors.black),
                               ),
